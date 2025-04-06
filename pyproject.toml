@@ -11,5 +11,6 @@ license = {file = "COPYING"}
 dependencies = [
     "tsfpga",
 ]
+
 [tool.setuptools.packages]
 find = {}
