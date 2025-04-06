@@ -5,25 +5,26 @@
 from pathlib import Path
 from tsfpga.module import BaseModule
 from tsfpga.hdl_file import HdlFile
+import verilog_axis
 
 class Module(BaseModule):
     def __init__(self):
-        super().__init__(path=Path(__file__).parent.resolve(), library_name="verilog_axis")
+        super().__init__(
+            path=Path(verilog_axis.__file__).parent.parent.resolve(),
+            library_name="verilog_axis",
+        )
 
     def get_synthesis_files(self, **kwargs):
-        folders = [self.path.parent / "rtl"]
-
-        files = [
+        folders = [self.path / "rtl"]
+        return [
             HdlFile(file_path)
             for file_path in self._get_file_list(
-                    folders=folders, file_endings=(".vhd", ".vhdl", ".v")
+                folders=folders, file_endings=(".vhd", ".vhdl", ".v")
             )
         ]
-        print("Synthesis files:", [str(f.path) for f in files])
-        return files
 
     def get_simulation_files(self, **kwargs):
-        folders = [self.path.parent / "rtl", self.path.parent / "test"]
+        folders = [self.path / "rtl", self.path.parent / "test"]
         return [
             HdlFile(file_path)
             for file_path in self._get_file_list(
