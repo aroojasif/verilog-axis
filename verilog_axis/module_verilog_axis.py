@@ -9,6 +9,8 @@ import verilog_axis
 
 class Module(BaseModule):
     def __init__(self):
+        print("DEBUG __file__:", __file__)
+        print("DEBUG verilog_axis.__file__:", verilog_axis.__file__)
         super().__init__(
             path=Path(verilog_axis.__file__).parent.parent.resolve(),
             library_name="verilog_axis",
